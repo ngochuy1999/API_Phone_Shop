@@ -38,6 +38,29 @@ public class InvoiceService {
     public List<Invoice> getAllInvoices(){
         return invoiceDAO.getAllInvoices();
     }
+
+    //List invoice by invoice status
+    public List<Invoice> getListAccomplish(){
+        return invoiceDAO.getListAccomplish();
+    }
+
+    public List<Invoice> getListConfirm(){
+        return invoiceDAO.getListConfirm();
+    }
+
+    public List<Invoice> getListDeliver(){
+        return invoiceDAO.getListDeliver();
+    }
+
+    public List<Invoice> getListPayment(){
+        return invoiceDAO.getListPayment();
+    }
+
+    public List<Invoice> getListCancel(){
+        return invoiceDAO.getListCancel();
+    }
+
+    //detail invoice
     public List<InvoiceItem> getDetailInvoice(int invoiceId){
         return  invoiceDAO.getDetailInvoice(invoiceId);
     }

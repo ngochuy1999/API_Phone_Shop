@@ -18,7 +18,7 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
-
+    //order
     @PostMapping(value = "/invoices",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -32,7 +32,7 @@ public class InvoiceController {
         }
     }
 
-
+    //all invoice
     @GetMapping(value = "/invoices",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -41,6 +41,48 @@ public class InvoiceController {
         return list;
     }
 
+    //list invoice by status
+    @GetMapping(value = "/confirm",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Invoice> getListConfirm(){
+        List<Invoice> list = invoiceService.getListConfirm();
+        return list;
+    }
+
+    @GetMapping(value = "/delivery",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Invoice> getListDeliver(){
+        List<Invoice> list = invoiceService.getListDeliver();
+        return list;
+    }
+
+    @GetMapping(value = "/payment",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Invoice> getListPayment(){
+        List<Invoice> list = invoiceService.getListPayment();
+        return list;
+    }
+
+    @GetMapping(value = "/accomplish",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Invoice> getListAccomplish(){
+        List<Invoice> list = invoiceService.getListAccomplish();
+        return list;
+    }
+
+    @GetMapping(value = "/cancel",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Invoice> getListCancel(){
+        List<Invoice> list = invoiceService.getListCancel();
+        return list;
+    }
+
+    //detail invoice
     @GetMapping(value = "/invoiceDetail",produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public List<InvoiceItem> getDetailInvoice(@RequestParam(value = "invoiceId") int invoiceId){
