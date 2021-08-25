@@ -25,6 +25,9 @@ public class Invoice {
     @Column(name ="name")
     private String name;
 
+    @Column(name ="totalPrice")
+    private Long totalPrice;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "employeeId")
     private Employee employee;
@@ -166,5 +169,13 @@ public class Invoice {
 
     public void setInvoiceItem(List<InvoiceItem> invoiceItem) {
         this.invoiceItem = invoiceItem;
+    }
+
+    public Long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

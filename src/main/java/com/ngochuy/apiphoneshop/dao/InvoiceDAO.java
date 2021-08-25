@@ -20,49 +20,49 @@ public class InvoiceDAO {
         return invoice;
     }
 
-    public List<Invoice> getAllInvoices(){
+    public List<Invoice> getAllInvoices(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()).list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }
 
     //Accomplished
-    public List<Invoice> getListAccomplish(){
+    public List<Invoice> getListAccomplish(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 4").list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 4 and i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }
 
     //Awaiting confirmation
-    public List<Invoice> getListConfirm(){
+    public List<Invoice> getListConfirm(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 1").list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 1 and i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }
 
     // waiting for payment
-    public List<Invoice> getListPayment(){
+    public List<Invoice> getListPayment(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 3").list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 3 and i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }
 
     //delivery
-    public List<Invoice> getListDeliver(){
+    public List<Invoice> getListDeliver(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 2").list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 2 and i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }
 
     //cancel
-    public List<Invoice> getListCancel(){
+    public List<Invoice> getListCancel(int userId){
         Session session = sessionFactory.getCurrentSession();
-        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 5").list();
+        List<Invoice> listInvoices =(List<Invoice>) session.createQuery("from "+Invoice.class.getName()+ " i where i.invoiceStatus.statusId = 5 and i.customer.userId = "+userId).list();
         System.out.println(listInvoices);
         return listInvoices;
     }

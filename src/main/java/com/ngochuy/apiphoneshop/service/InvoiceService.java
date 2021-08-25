@@ -35,29 +35,29 @@ public class InvoiceService {
     private EmployeeDAO employeeDAO;
 
 
-    public List<Invoice> getAllInvoices(){
-        return invoiceDAO.getAllInvoices();
+    public List<Invoice> getAllInvoices(int userId){
+        return invoiceDAO.getAllInvoices(userId);
     }
 
     //List invoice by invoice status
-    public List<Invoice> getListAccomplish(){
-        return invoiceDAO.getListAccomplish();
+    public List<Invoice> getListAccomplish(int userId){
+        return invoiceDAO.getListAccomplish(userId);
     }
 
-    public List<Invoice> getListConfirm(){
-        return invoiceDAO.getListConfirm();
+    public List<Invoice> getListConfirm(int userId){
+        return invoiceDAO.getListConfirm(userId);
     }
 
-    public List<Invoice> getListDeliver(){
-        return invoiceDAO.getListDeliver();
+    public List<Invoice> getListDeliver(int userId){
+        return invoiceDAO.getListDeliver(userId);
     }
 
-    public List<Invoice> getListPayment(){
-        return invoiceDAO.getListPayment();
+    public List<Invoice> getListPayment(int userId){
+        return invoiceDAO.getListPayment(userId);
     }
 
-    public List<Invoice> getListCancel(){
-        return invoiceDAO.getListCancel();
+    public List<Invoice> getListCancel(int userId){
+        return invoiceDAO.getListCancel(userId);
     }
 
     //detail invoice
@@ -66,7 +66,7 @@ public class InvoiceService {
     }
 
     //order
-    public Invoice addInvoice(int userId){
+    public Invoice addInvoice(int userId, Long totalPrice){
         Customer customer = accountDAO.getUser(userId);
         Invoice invoice = new Invoice();
 
@@ -93,6 +93,7 @@ public class InvoiceService {
 
         invoice.setBuyDate(date);
         invoice.setDeliveryDate(deliveryDate);
+        invoice.setTotalPrice(totalPrice);
         invoice.setEmployee(employeeDAO.getEmployee(1));
         invoice.setInvoiceStatus(invoiceStatusDAO.getStatus(1));
         invoice.setActive(1);
@@ -109,7 +110,7 @@ public class InvoiceService {
     }
     public Boolean addInvoiceDetail (InvoiceRequest invoiceRequest) {
         try {
-            Invoice invoice = addInvoice(invoiceRequest.getUserId());
+            Invoice invoice = addInvoice(invoiceRequest.getUserId(),invoiceRequest.getTotalPrice());
             for (ProductInCart productInCart : invoiceRequest.getListProInCart()) {
                 InvoiceItem invoiceItem = new InvoiceItem();
                 Product product = productDAO.getProduct(productInCart.getProductId());
