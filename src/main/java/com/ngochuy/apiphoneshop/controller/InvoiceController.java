@@ -36,57 +36,62 @@ public class InvoiceController {
     @GetMapping(value = "/invoices",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getAllInvoices(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getAllInvoices(userId);
-        return list;
+    public List<Invoice> getAllInvoices(@RequestParam(value = "userId") int userId){
+        return invoiceService.getAllInvoices(userId);
     }
 
     //list invoice by status
     @GetMapping(value = "/confirm",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getListConfirm(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getListConfirm(userId);
-        return list;
+    public List<Invoice> getListConfirm(@RequestParam(value = "userId") int userId){
+        return invoiceService.getListConfirm(userId);
     }
 
     @GetMapping(value = "/delivery",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getListDeliver(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getListDeliver(userId);
-        return list;
+    public List<Invoice> getListDeliver(@RequestParam(value = "userId") int userId){
+        return invoiceService.getListDeliver(userId);
     }
 
     @GetMapping(value = "/payment",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getListPayment(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getListPayment(userId);
-        return list;
+    public List<Invoice> getListPayment(@RequestParam(value = "userId") int userId){
+        return invoiceService.getListPayment(userId);
     }
 
     @GetMapping(value = "/accomplish",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getListAccomplish(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getListAccomplish(userId);
-        return list;
+    public List<Invoice> getListAccomplish(@RequestParam(value = "userId") int userId){
+        return invoiceService.getListAccomplish(userId);
     }
 
     @GetMapping(value = "/cancel",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Invoice> getListCancel(@RequestHeader(value = "userId") int userId){
-        List<Invoice> list = invoiceService.getListCancel(userId);
-        return list;
+    public List<Invoice> getListCancel(@RequestParam(value = "userId") int userId){
+        return invoiceService.getListCancel(userId);
     }
 
     //detail invoice
     @GetMapping(value = "/invoiceDetail",produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<InvoiceItem> getDetailInvoice(@RequestHeader(value = "invoiceId") int invoiceId){
-        List<InvoiceItem> list = invoiceService.getDetailInvoice(invoiceId);
-        return list;
+    public List<InvoiceItem> getDetailInvoice(@RequestParam(value = "invoiceId") int invoiceId){
+        return invoiceService.getDetailInvoice(invoiceId);
+    }
+
+    //cancel invoice
+    @PostMapping(value = "/cancelInvoice",produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> cancelInvoice(@RequestParam(value = "invoiceId") int invoiceId){
+        boolean result = invoiceService.cancelInvoice(invoiceId);
+        if(result){
+            return ResponseEntity.ok(new BadResponse(1));
+        }else{
+            return ResponseEntity.ok(new BadResponse(0));
+        }
     }
 }

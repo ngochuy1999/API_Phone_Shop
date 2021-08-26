@@ -65,6 +65,11 @@ public class InvoiceService {
         return  invoiceDAO.getDetailInvoice(invoiceId);
     }
 
+    //cancel invoice
+    public Boolean cancelInvoice(int invoiceId){
+        return invoiceDAO.cancelInvoice(invoiceId);
+    }
+
     //order
     public Invoice addInvoice(int userId, Long totalPrice){
         Customer customer = accountDAO.getUser(userId);

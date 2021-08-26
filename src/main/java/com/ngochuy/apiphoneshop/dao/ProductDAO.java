@@ -39,7 +39,7 @@ public class ProductDAO {
     }
     public List<Product> getAllProducts(){
         Session session = sessionFactory.getCurrentSession();
-        List<Product> listProducts =(List<Product>) session.createQuery("from "+Product.class.getName()).list();
+        List<Product> listProducts =(List<Product>) session.createQuery("from "+Product.class.getName()+" p order by p.price desc ").list();
         System.out.println(listProducts);
         return listProducts;
     }
