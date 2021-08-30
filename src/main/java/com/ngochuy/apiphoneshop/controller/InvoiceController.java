@@ -18,7 +18,7 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
-    //order
+    //add invoice 
     @PostMapping(value = "/invoices",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody

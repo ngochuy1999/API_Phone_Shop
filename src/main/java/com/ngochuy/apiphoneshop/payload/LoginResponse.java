@@ -4,11 +4,15 @@ public class LoginResponse {
     String email;
     String password;
     int id;
+    int roleId;
+    int active;
 
-    public LoginResponse(String email, String password,int id) {
+    public LoginResponse(String email, String password,int id, int roleId, int active) {
         this.email = email;
         this.password = password;
         this.id =id;
+        this.roleId = roleId;
+        this.active =active;
     }
 
     public LoginResponse() {
@@ -37,5 +41,21 @@ public class LoginResponse {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

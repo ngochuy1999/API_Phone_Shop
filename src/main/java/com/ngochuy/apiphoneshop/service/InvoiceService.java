@@ -71,14 +71,14 @@ public class InvoiceService {
     }
 
     //order
-    public Invoice addInvoice(int userId, Long totalPrice){
+    public Invoice addInvoice(int userId,String name, String phone, String address, Long totalPrice){
         Customer customer = accountDAO.getUser(userId);
         Invoice invoice = new Invoice();
 
         invoice.setCustomer(customer);
-        invoice.setName(customer.getName());
-        invoice.setPhone(customer.getPhone());
-        invoice.setAddress(customer.getAddress());
+        invoice.setName(name);
+        invoice.setPhone(phone);
+        invoice.setAddress(address);
 
         Date date = Date.valueOf(LocalDate.now());
         Calendar calendar = Calendar.getInstance();
@@ -115,7 +115,7 @@ public class InvoiceService {
     }
     public Boolean addInvoiceDetail (InvoiceRequest invoiceRequest) {
         try {
-            Invoice invoice = addInvoice(invoiceRequest.getUserId(),invoiceRequest.getTotalPrice());
+            Invoice invoice = addInvoice(invoiceRequest.getUserId(),invoiceRequest.getName(),invoiceRequest.getPhone(),invoiceRequest.getAddress(),invoiceRequest.getTotalPrice());
             for (ProductInCart productInCart : invoiceRequest.getListProInCart()) {
                 InvoiceItem invoiceItem = new InvoiceItem();
                 Product product = productDAO.getProduct(productInCart.getProductId());

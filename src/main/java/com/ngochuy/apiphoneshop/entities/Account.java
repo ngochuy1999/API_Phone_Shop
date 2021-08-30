@@ -1,10 +1,12 @@
 package com.ngochuy.apiphoneshop.entities;
 
+
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Account")
-public class Account{
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accountId",unique = true,nullable = false)
@@ -84,4 +86,5 @@ public class Account{
     public void setRole(Role role) {
         this.role = role;
     }
+
 }
