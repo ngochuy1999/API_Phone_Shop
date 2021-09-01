@@ -84,11 +84,12 @@ public class InvoiceController {
     }
 
     //cancel invoice
-    @PostMapping(value = "/cancelInvoice",produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(value = "/cancelInvoice",produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<?> cancelInvoice(@RequestParam(value = "invoiceId") int invoiceId){
         boolean result = invoiceService.cancelInvoice(invoiceId);
         if(result){
+            invoiceService.reloadQuantityProduct(invoiceId);
             return ResponseEntity.ok(new BadResponse(1));
         }else{
             return ResponseEntity.ok(new BadResponse(0));

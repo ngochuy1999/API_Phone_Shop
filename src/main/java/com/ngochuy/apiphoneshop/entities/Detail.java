@@ -10,8 +10,7 @@ import java.util.List;
 @Table(name = "Detail")
 public class Detail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detailId", unique = true, nullable = false)
+    @Column(name = "productId", unique = true, nullable = false)
     private Integer detailId;
     @Column(name = "display", nullable = false,length = 50)
     private String display;
@@ -29,6 +28,11 @@ public class Detail {
     private String ROM;
     @Column(name = "battery", nullable = false,length = 50)
     private String battery;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "productId")
+    private Product product;
 
     public Integer getDetailId() {
         return detailId;

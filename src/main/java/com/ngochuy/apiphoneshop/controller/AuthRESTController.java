@@ -49,10 +49,9 @@ public class AuthRESTController {
     public ResponseEntity<?> signup(@RequestParam (value = "email") String email,
                                     @RequestParam(value = "name")String name,
                                     @RequestParam(value = "password")String password,
-                                    @RequestParam(value = "phone")String phone,
-                                    @RequestParam(value = "address")String address){
+                                    @RequestParam(value = "phone")String phone){
 
-        int result = accountService.signup(email,name,password,phone,address);
+        int result = accountService.signup(email,name,password,phone);
         if(result == 0)  return ResponseEntity.ok(new BadResponse(0));
         else if(result == -1)  return ResponseEntity.ok(new BadResponse(-1));
         else    return ResponseEntity.ok(new BadResponse(1));
@@ -63,10 +62,9 @@ public class AuthRESTController {
     @ResponseBody
     public ResponseEntity<?> changeInfo(@RequestParam (value = "id") int id,
                                     @RequestParam(value = "name")String name,
-                                    @RequestParam(value = "phone")String phone,
-                                    @RequestParam(value = "address")String address){
+                                    @RequestParam(value = "phone")String phone){
 
-        boolean result = accountService.changeInfo(id,name,phone,address);
+        boolean result = accountService.changeInfo(id,name,phone);
         if(!result)  return ResponseEntity.ok(new BadResponse(0));
         else
             return ResponseEntity.ok(new BadResponse(1));
@@ -109,7 +107,7 @@ public class AuthRESTController {
         return addressService.getAddressDefault(userId);
     }
 
-    //add invoice
+    //add address
     @PostMapping(value = "/address",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -120,5 +118,11 @@ public class AuthRESTController {
         }else{
             return ResponseEntity.ok(new BadResponse(0));
         }
+    }
+
+    @DeleteMapping(value = "/address", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String deleteAddress(@RequestParam(value = "addressId") int addressId){
+        addressService.deleteAddress(addressId);
+        return "Delete successful";
     }
 }

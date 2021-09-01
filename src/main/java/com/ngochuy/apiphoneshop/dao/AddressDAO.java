@@ -29,4 +29,18 @@ public class AddressDAO {
         session.save(address);
         return address;
     }
+
+    public Address changeDefault(Address address){
+        Session session = sessionFactory.getCurrentSession();
+        Address addressUpdate= (Address) session.createQuery("FROM Address as a WHERE a.addressId= '"+address.getAddressId()+"'").uniqueResult();
+        addressUpdate.setIsDefault(0);
+        session.update(addressUpdate);
+        return addressUpdate;
+    }
+
+    public void deleteAddress(int addressId){
+        Session session = sessionFactory.getCurrentSession();
+        Address address = (Address) session.get(Address.class,addressId);
+        session.delete(address);
+    }
 }

@@ -7,11 +7,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ImageDetail")
-public class ImageDetail {
+@Table(name = "ImageProduct")
+public class ImageProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "imageId", unique = true, nullable = false)
+    @Column(name = "productId", unique = true, nullable = false)
     private Integer imageId;
 
     @Column(name = "imageUrl1",nullable = false,length = 200)
@@ -29,10 +28,10 @@ public class ImageDetail {
     @Column(name = "imageUrl5",nullable = false,length = 200)
     private String imageUrl5;
 
-    @JsonIgnore
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @OneToMany(mappedBy = "imageDetail")
-    List<Product> products;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "productId")
+    Product product;
 
     public Integer getImageId() {
         return imageId;
@@ -80,13 +79,5 @@ public class ImageDetail {
 
     public void setImageUrl5(String imageUrl5) {
         this.imageUrl5 = imageUrl5;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 }

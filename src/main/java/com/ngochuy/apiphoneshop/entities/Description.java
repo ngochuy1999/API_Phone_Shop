@@ -10,8 +10,7 @@ import java.util.List;
 @Table(name = "Description")
 public class Description {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "descriptionId", unique = true, nullable = false)
+    @Column(name = "productId", unique = true, nullable = false)
     private Integer descriptionId;
     @Column(name = "des1", nullable = false,length = 200)
     private String des1;
@@ -20,6 +19,10 @@ public class Description {
     @Column(name = "des2", nullable = false,length = 200)
     private String des2;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "productId")
+    private Product product;
 
     public Integer getDescriptionId() {
         return descriptionId;

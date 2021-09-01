@@ -12,8 +12,7 @@ import java.util.List;
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employeeId",unique = true,nullable = false)
+    @Column(name = "accountId",unique = true,nullable = false)
     private int employeeId;
 
     @Column(name = "address",nullable = false)
@@ -53,7 +52,8 @@ public class Employee {
     private Integer active;
 
     @OneToOne
-    @JoinColumn(name = "accountId",nullable = false)
+    @MapsId
+    @JoinColumn(name = "accountId")
     private Account account;
 
     @JsonIgnore

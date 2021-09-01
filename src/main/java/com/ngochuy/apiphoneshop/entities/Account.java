@@ -27,6 +27,14 @@ public class Account {
     @Column(name = "active")
     private Integer active;
 
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Employee employee;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Customer customer;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="roleId",nullable = false)
     private Role role;

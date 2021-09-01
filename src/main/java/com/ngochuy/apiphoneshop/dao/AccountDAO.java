@@ -44,7 +44,7 @@ public class AccountDAO {
         return (Customer) session.createQuery("FROM Customer c WHERE c.account.accountId = '" + account.getAccountId() + "'").uniqueResult();
     }
 
-    public Boolean createUser(String email, String name, String password, String phone, String address) {
+    public Boolean createUser(String email, String name, String password, String phone) {
         Session session = sessionFactory.openSession();
         Transaction t = session.beginTransaction();
 
@@ -60,10 +60,10 @@ public class AccountDAO {
             session.save(account);
 
             Customer customer = new Customer();
+            customer.setUserId(account.getAccountId());
             customer.setAccount(account);
             customer.setName(name);
             customer.setPhone(phone);
-            customer.setAddress(address);
             long millis=System.currentTimeMillis();   java.sql.Date date=new java.sql.Date(millis);
             customer.setDateCreate(date);
             session.save(customer);
@@ -79,16 +79,15 @@ public class AccountDAO {
         return false;
     }
 
-    public boolean updateUser(int id, String name, String phone, String address) {
+    public boolean updateUser(int id, String name, String phone) {
         Session session = sessionFactory.openSession();
         Transaction t = session.beginTransaction();
         try {
-            String hql = "UPDATE Customer set name = :name ,phone = :phone,address =:address"  +
+            String hql = "UPDATE Customer set name = :name ,phone = :phone"  +
                     " WHERE userId = :id";
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
             query.setParameter("phone", phone);
-            query.setParameter("address", address);
             query.setParameter("id",id);
             int result = query.executeUpdate();
             t.commit();

@@ -90,9 +90,6 @@ public class InvoiceService {
         if(result.startsWith("Sun")){
             calendar.add(Calendar.DATE,1);
         }
-        if(result.startsWith("Sat")){
-            calendar.add(Calendar.DATE,2);
-        }
         dateformat = calendar.getTime();
         Date deliveryDate = new Date(dateformat.getTime());
 
@@ -110,6 +107,15 @@ public class InvoiceService {
         for(ProductInCart productInCart: invoiceRequest.getListProInCart()) {
             Product product = productDAO.getProduct(productInCart.getProductId());
             product.setQuantity(product.getQuantity()-productInCart.getQuantityCart());
+            productDAO.updateProduct(product);
+        }
+    }
+
+    public void reloadQuantityProduct(int invoiceId){
+        List<InvoiceItem> invoiceItemList = getDetailInvoice(invoiceId);
+        for(InvoiceItem productInCart: invoiceItemList) {
+            Product product = productDAO.getProduct(productInCart.getProduct().getProductId());
+            product.setQuantity(product.getQuantity()+productInCart.getQuantity());
             productDAO.updateProduct(product);
         }
     }

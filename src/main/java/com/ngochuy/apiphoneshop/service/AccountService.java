@@ -46,12 +46,12 @@ public class AccountService {
         }
     }
 
-    public int signup(String email, String name, String password, String phone, String address){
+    public int signup(String email, String name, String password, String phone){
 
-        if(accountDAO.checkEmail(email)){
-            return 0;
-        }
-        boolean result = accountDAO.createUser(email,name,password,phone,address);
+//        if(accountDAO.checkEmail(email)){
+//            return 0;
+//        }
+        boolean result = accountDAO.createUser(email,name,password,phone);
         if(result){
             String link = "http://localhost:8080/rest/confirmAcc?email="+ email;
             emailSender.send(
@@ -132,8 +132,8 @@ public class AccountService {
                 "</div></div>";
     }
 
-    public boolean changeInfo(int id,String name, String phone, String address){
-        return accountDAO.updateUser(id,name,phone,address);
+    public boolean changeInfo(int id,String name, String phone){
+        return accountDAO.updateUser(id,name,phone);
     }
 
     public boolean changePassword(int id,String oldPassword, String newPassword){

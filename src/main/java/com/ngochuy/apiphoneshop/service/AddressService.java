@@ -32,8 +32,14 @@ public class AddressService {
 
     public Address addAddress(AddressRequest addressRequest){
         Customer customer = accountDAO.getUser(addressRequest.getUserId());
-        Address address = new Address();
 
+        Address address = new Address();
+        if(addressRequest.getIsDefault()==1){
+            Address addChangeDefault = addressDAO.getAddressDefault(addressRequest.getUserId());
+            if (addChangeDefault != null) {
+                addressDAO.changeDefault(addChangeDefault);
+            }
+        }
         address.setCustomer(customer);
         address.setActive(addressRequest.getActive());
         address.setName(addressRequest.getName());
@@ -43,8 +49,11 @@ public class AddressService {
         address.setWard(addressRequest.getWard());
         address.setStreet(addressRequest.getStreet());
         address.setIsDefault(addressRequest.getIsDefault());
-
         addressDAO.addAddress(address);
         return address;
+    }
+
+    public void deleteAddress(int addressId){
+        addressDAO.deleteAddress(addressId);
     }
 }

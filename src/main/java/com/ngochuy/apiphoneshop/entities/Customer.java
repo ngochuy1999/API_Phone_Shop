@@ -13,8 +13,7 @@ import java.util.List;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId",unique = true,nullable = false)
+    @Column(name = "accountId",unique = true,nullable = false)
     private int userId;
 
     @Column(name = "name",nullable = false)
@@ -22,9 +21,6 @@ public class Customer {
 
     @Column(name = "phone",nullable = false)
     private String phone;
-
-    @Column(name = "address")
-    private String address;
 
     @Column(name = "imageUrl")
     private String imageUrl;
@@ -46,7 +42,8 @@ public class Customer {
 
 
     @OneToOne
-    @JoinColumn(name = "accountId",nullable = false)
+    @MapsId
+    @JoinColumn(name = "accountId")
     private Account account;
 
     public int getUserId() {
@@ -113,11 +110,4 @@ public class Customer {
         this.invoices = invoices;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

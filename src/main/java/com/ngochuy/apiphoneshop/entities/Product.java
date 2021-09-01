@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.management.Descriptor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -38,16 +37,16 @@ public class Product {
     @JoinColumn(name ="provideId",nullable = false)
     private Provider provider;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="imageId",nullable = false)
-    private ImageDetail imageDetail;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ImageProduct imageDetail;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="descriptionId",nullable = false)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Description description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="detailId",nullable = false)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Detail detail;
 
     @Temporal(TemporalType.DATE)
@@ -99,11 +98,11 @@ public class Product {
         this.provider = provider;
     }
 
-    public ImageDetail getImageDetail() {
+    public ImageProduct getImageDetail() {
         return imageDetail;
     }
 
-    public void setImageDetail(ImageDetail imageDetail) {
+    public void setImageDetail(ImageProduct imageDetail) {
         this.imageDetail = imageDetail;
     }
 
